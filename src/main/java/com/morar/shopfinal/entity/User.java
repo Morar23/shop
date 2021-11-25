@@ -1,6 +1,8 @@
 package com.morar.shopfinal.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -21,6 +23,9 @@ public class User {
 
     @Column(name = "role",nullable = false)
     private String role;
+
+    @OneToMany(mappedBy = "author", orphanRemoval = true)
+    private List<Announcement> announcements = new ArrayList<>();
 
     public User() {
     }
@@ -59,5 +64,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Announcement> getAnnouncements() {
+        return announcements;
+    }
+
+    public void setAnnouncements(List<Announcement> announcements) {
+        this.announcements = announcements;
     }
 }

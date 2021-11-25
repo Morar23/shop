@@ -1,6 +1,8 @@
 package com.morar.shopfinal.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="category")
@@ -12,6 +14,9 @@ public class Category {
 
     @Column(name="category_name", nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "category", orphanRemoval = true)
+    private List<Announcement> announcements = new ArrayList<>();
 
     public Category() {
     }
@@ -26,5 +31,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Announcement> getAnnouncements() {
+        return announcements;
+    }
+
+    public void setAnnouncements(List<Announcement> announcements) {
+        this.announcements = announcements;
     }
 }
