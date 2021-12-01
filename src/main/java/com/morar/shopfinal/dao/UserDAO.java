@@ -1,5 +1,6 @@
 package com.morar.shopfinal.dao;
 
+import com.morar.shopfinal.dto.UserDTO;
 import com.morar.shopfinal.entity.User;
 import com.morar.shopfinal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,19 @@ public class UserDAO {
 
     public List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    public User getUserByEmail (String email){
+        return userRepository.findByMail(email);
+    }
+
+    public void saveUser(UserDTO userDTO, boolean isAdmin){
+        User user = new User();
+        user.setMail(userDTO.getMail());
+        user.setName(userDTO.getName());
+        user.setPhone(userDTO.getPhone());
+        user.setPassword(userDTO.getPassword());
+        user.setRole(isAdmin ? "ADMIN" : "USER");
+        userRepository.saveAndFlush(user);
     }
 }
