@@ -5,10 +5,12 @@ import com.morar.shopfinal.entity.User;
 import com.morar.shopfinal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserDAO {
 
     private final UserRepository userRepository;
@@ -34,5 +36,30 @@ public class UserDAO {
         user.setPassword(userDTO.getPassword());
         user.setRole(isAdmin ? "ADMIN" : "USER");
         userRepository.saveAndFlush(user);
+    }
+
+    public boolean deleteUser(UserDTO userDTO){
+        if (userDTO != null && !userDTO.getMail().isEmpty()){
+            if (userRepository.existsUsersByMail(userDTO.getMail())){
+                return userRepository.deleteByMail(userDTO.getMail()) > 0;
+            }
+        }
+        return false;
+    }
+
+    public boolean editUser(UserDTO userDTO){
+        if (userDTO != null && !userDTO.getMail().isEmpty()){
+            if (userRepository.existsUsersByMail(userDTO.getMail())){
+                User user = userRepository.findByMail(userDTO.getMail());
+                user.setMail(userDTO.getMail());
+                user.setPassword(userDTO.getPassword());
+                user.setPhone(userDTO.getPhone());
+                user.setName(userDTO.getName());
+                user.setRole(userDTO.getRole());
+                userRepository.saveAndFlush(user);
+                return true;
+            }
+        }
+        return false;
     }
 }

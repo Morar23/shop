@@ -16,4 +16,7 @@ public class UserDTO {
 
     @NonNull
     private String password;
+
+    @NonNull
+    private String role;
 }
