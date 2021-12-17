@@ -63,9 +63,7 @@ public class Announcement {
         this.price = price;
     }
 
-    public Date getCreated_in() {
-        return created_in;
-    }
+    public Date getCreated_in() {return created_in;}
 
     public void setCreated_in(Date created_in) {
         this.created_in = created_in;
