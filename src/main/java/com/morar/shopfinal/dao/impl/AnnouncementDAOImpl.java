@@ -22,9 +22,26 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
     @Autowired
     public AnnouncementDAOImpl(AnnouncementRepository announcementRepository) {this.announcementRepository = announcementRepository;}
 
-    public List<Announcement> getAllAnnouncement(){return  announcementRepository.findAll();}
+    public List<Announcement> getAllAnnouncements(){return  announcementRepository.findAll();}
 
     public Announcement getAnnouncementByName(String name){return  announcementRepository.findByName(name);}
+
+    @Override
+    public void updateAnnouncement(AnnouncementDTO announcementDTO, Category category) {
+        if (announcementDTO != null){
+            if (announcementRepository.existsById(announcementDTO.getId())){
+                Announcement announcement = announcementRepository.getById(announcementDTO.getId());
+                announcement.setName(announcementDTO.getName());
+                announcement.setDescription(announcementDTO.getDescription());
+                announcement.setPrice(announcementDTO.getPrice());
+                announcement.setCreated_in(announcementDTO.getCreatedIn());
+                if (category != null){
+                    announcement.setCategory(category);
+                }
+                announcementRepository.saveAndFlush(announcement);
+            }
+        }
+    }
 
     public void saveAnnouncement(AnnouncementDTO announcementDTO, User author, Category category)
     {
@@ -32,7 +49,7 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
         announcement.setName(announcementDTO.getName());
         announcement.setDescription(announcementDTO.getDescription());
         announcement.setPrice(announcementDTO.getPrice());
-        announcement.setCreated_in(announcementDTO.getCreated_in());
+        announcement.setCreated_in(announcementDTO.getCreatedIn());
         announcement.setAddress(announcementDTO.getAddress());
         announcement.setAuthor(author);
         announcement.setCategory(category);
@@ -40,10 +57,10 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
         announcementRepository.saveAndFlush(announcement);
     }
 
-    public boolean deleteAnnouncement(AnnouncementDTO announcementDTO){
-        if (announcementDTO != null && announcementDTO.getId() != 0){
-            if (announcementRepository.existsById(announcementDTO.getId())){
-                return announcementRepository.deleteAllById(announcementDTO.getId()) > 0;
+    public boolean deleteAnnouncement(Long announcementId){
+        if (announcementId != 0){
+            if (announcementRepository.existsById(announcementId)){
+                return announcementRepository.deleteAllById(announcementId) > 0;
             }
         }
         return false;

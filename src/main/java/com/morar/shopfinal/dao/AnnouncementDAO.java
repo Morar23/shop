@@ -8,11 +8,15 @@ import com.morar.shopfinal.entity.User;
 import java.util.List;
 
 public interface AnnouncementDAO {
-    List<Announcement> getAllAnnouncement();
+    List<Announcement> getAllAnnouncements();
 
     Announcement getAnnouncementByName(String name);
 
-    void saveAnnouncement(AnnouncementDTO announcementDTO, User author, Category category);
+    Announcement getAnnouncementById(Long id);
 
-    boolean deleteAnnouncement(AnnouncementDTO announcementDTO);
+    void updateAnnouncement(AnnouncementDTO announcementDTO, Category category);
+
+    boolean deleteAnnouncement(Long announcementId);
+
+    void saveAnnouncement(AnnouncementDTO announcementDTO, User author, Category category);
 }

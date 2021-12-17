@@ -26,6 +26,10 @@ public class UserDAO {
         return userRepository.findByMail(email);
     }
 
+    public User getUserById (Long id){
+        return userRepository.getById(id);
+    }
+
     public void saveUser(UserDTO userDTO, boolean isAdmin){
         User user = new User();
         user.setMail(userDTO.getMail());
