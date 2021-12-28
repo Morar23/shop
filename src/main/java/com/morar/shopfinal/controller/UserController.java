@@ -1,6 +1,6 @@
 package com.morar.shopfinal.controller;
 
-import com.morar.shopfinal.dao.UserDAO;
+import com.morar.shopfinal.dao.impl.UserDAO;
 import com.morar.shopfinal.dto.UserDTO;
 import com.morar.shopfinal.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;

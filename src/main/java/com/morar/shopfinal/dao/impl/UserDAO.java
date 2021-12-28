@@ -1,4 +1,4 @@
-package com.morar.shopfinal.dao;
+package com.morar.shopfinal.dao.impl;
 
 import com.morar.shopfinal.dto.UserDTO;
 import com.morar.shopfinal.entity.User;
@@ -20,12 +20,14 @@ public class UserDAO {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
-    }
+    public List<User> getAllUsers(){return userRepository.findAll();}
 
     public User getUserByEmail (String email){
         return userRepository.findByMail(email);
+    }
+
+    public User getUserById (Long id){
+        return userRepository.getById(id);
     }
 
     public void saveUser(UserDTO userDTO, boolean isAdmin){

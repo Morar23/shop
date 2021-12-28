@@ -1,8 +1,9 @@
 package com.morar.shopfinal.controller;
 
-import com.morar.shopfinal.dao.CategoryDAO;
+import com.morar.shopfinal.dao.impl.CategoryDAOImpl;
 import com.morar.shopfinal.dto.CategoryDTO;
 import com.morar.shopfinal.entity.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +11,9 @@ import java.util.List;
 
 @RestController
 public class CategoryController {
-    private final CategoryDAO categoryDAO;
-//autowired
-    public CategoryController(CategoryDAO categoryDAO) {this.categoryDAO = categoryDAO;}
+    private final CategoryDAOImpl categoryDAO;
+    @Autowired
+    public CategoryController(CategoryDAOImpl categoryDAO) {this.categoryDAO = categoryDAO;}
 
     @GetMapping(value = "/categories")
     public List<Category> getName(){
