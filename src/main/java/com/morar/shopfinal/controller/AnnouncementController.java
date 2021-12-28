@@ -21,8 +21,9 @@ public class AnnouncementController {
     }
 
     @GetMapping("/announcements")
-    public List<AnnouncementDTO> getAnnouncements(){
-        return announcementService.getAllAnnouncements();
+    public ResponseEntity<List<AnnouncementDTO>> getAnnouncements(){
+        List<AnnouncementDTO> announcements = announcementService.getAllAnnouncements();
+        return new ResponseEntity<>(announcements, HttpStatus.OK);
     }
 
     @GetMapping("/announcement/{id}")
