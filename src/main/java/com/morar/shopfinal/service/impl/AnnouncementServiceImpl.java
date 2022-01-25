@@ -7,8 +7,10 @@ import com.morar.shopfinal.dto.AnnouncementDTO;
 import com.morar.shopfinal.entity.Announcement;
 import com.morar.shopfinal.entity.Category;
 import com.morar.shopfinal.entity.User;
+import com.morar.shopfinal.exception.AnnouncementNotFoundException;
 import com.morar.shopfinal.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -28,21 +30,6 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         this.announcementDAO = announcementDAO;
         this.categoryDAO = categoryDAO;
         this.userDAO = userDAO;
-    }
-
-    public void saveAnnouncement(AnnouncementDTO announcementDTO) {
-        Category category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
-        User user = userDAO.getUserById(1L);
-        announcementDAO.saveAnnouncement(announcementDTO, user, category);
-    }
-
-    @Override
-    public void updateAnnouncement(AnnouncementDTO announcementDTO) {
-        Category category = null;
-        if (announcementDTO.getCategoryId() > 0){
-            category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
-        }
-        announcementDAO.updateAnnouncement(announcementDTO, category);
     }
 
     @Override
@@ -66,22 +53,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public AnnouncementDTO getAnnouncementByName(String name) {
-        Announcement announcement = announcementDAO.getAnnouncementByName(name);
-        return new AnnouncementDTO(
-                announcement.getId(),
-                announcement.getName(),
-                announcement.getDescription(),
-                announcement.getPrice(),
-                announcement.getAddress(),
-                announcement.getCreated_in(),
-                announcement.getCategory().getId(),
-                announcement.getAuthor().getId()
-        );
-    }
-
-    @Override
-    public AnnouncementDTO getAnnouncementById(Long id) {
+    public AnnouncementDTO getAnnouncementById(Long id) throws AnnouncementNotFoundException {
         Announcement announcement = announcementDAO.getAnnouncementById(id);
         return new AnnouncementDTO(
                 announcement.getId(),
@@ -95,8 +67,23 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         );
     }
 
+    public void saveAnnouncement(@NonNull AnnouncementDTO announcementDTO) {
+        Category category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
+        User user = userDAO.getUserById(1L);
+        announcementDAO.saveAnnouncement(announcementDTO, user, category);
+    }
+
     @Override
-    public boolean deleteAnnouncement(Long announcementId) {
-        return announcementDAO.deleteAnnouncement(announcementId);
+    public void updateAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException {
+        Category category = null;
+        if (announcementDTO.getCategoryId() > 0){
+            category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
+        }
+        announcementDAO.updateAnnouncement(announcementDTO, category);
+    }
+
+    @Override
+    public void deleteAnnouncement(Long announcementId) throws AnnouncementNotFoundException {
+        announcementDAO.deleteAnnouncement(announcementId);
     }
 }

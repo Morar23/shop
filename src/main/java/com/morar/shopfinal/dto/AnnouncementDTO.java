@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AnnouncementDTO {
+
     private long id;
 
     @NonNull
@@ -26,10 +27,6 @@ public class AnnouncementDTO {
     private long categoryId;
 
     private long authorId;
-
-    public AnnouncementDTO() {
-
-    }
 
     public AnnouncementDTO(long id, @NonNull String name, @NonNull String description, double price, @NonNull String address, @NonNull Date createdIn, long categoryId, long authorId) {
         this.id = id;

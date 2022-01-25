@@ -4,19 +4,19 @@ import com.morar.shopfinal.dto.AnnouncementDTO;
 import com.morar.shopfinal.entity.Announcement;
 import com.morar.shopfinal.entity.Category;
 import com.morar.shopfinal.entity.User;
+import com.morar.shopfinal.exception.AnnouncementNotFoundException;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 
 public interface AnnouncementDAO {
     List<Announcement> getAllAnnouncements();
 
-    Announcement getAnnouncementByName(String name);
+    Announcement getAnnouncementById(Long id) throws AnnouncementNotFoundException;
 
-    Announcement getAnnouncementById(Long id);
+    Announcement updateAnnouncement(@NonNull AnnouncementDTO announcementDTO, @NonNull Category category) throws AnnouncementNotFoundException;
 
-    void updateAnnouncement(AnnouncementDTO announcementDTO, Category category);
+    void deleteAnnouncement(Long announcementId) throws AnnouncementNotFoundException;
 
-    boolean deleteAnnouncement(Long announcementId);
-
-    void saveAnnouncement(AnnouncementDTO announcementDTO, User author, Category category);
+    Announcement saveAnnouncement(@NonNull AnnouncementDTO announcementDTO, @NonNull User author, @NonNull Category category);
 }

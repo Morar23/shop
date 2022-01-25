@@ -5,12 +5,15 @@ import com.morar.shopfinal.dto.AnnouncementDTO;
 import com.morar.shopfinal.entity.Announcement;
 import com.morar.shopfinal.entity.Category;
 import com.morar.shopfinal.entity.User;
+import com.morar.shopfinal.exception.AnnouncementNotFoundException;
 import com.morar.shopfinal.repository.AnnouncementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -20,31 +23,44 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
     private final AnnouncementRepository announcementRepository;
 
     @Autowired
-    public AnnouncementDAOImpl(AnnouncementRepository announcementRepository) {this.announcementRepository = announcementRepository;}
-
-    public List<Announcement> getAllAnnouncements(){return  announcementRepository.findAll();}
-
-    public Announcement getAnnouncementByName(String name){return  announcementRepository.findByName(name);}
-
-    public Announcement getAnnouncementById(Long id){return  announcementRepository.findById(id).orElse(null);}
+    public AnnouncementDAOImpl(AnnouncementRepository announcementRepository) {
+        this.announcementRepository = announcementRepository;
+    }
 
     @Override
-    public void updateAnnouncement(AnnouncementDTO announcementDTO, Category category) {
-        if (announcementDTO != null && announcementRepository.existsById(announcementDTO.getId())){
-            Announcement announcement = announcementRepository.getById(announcementDTO.getId());
+    public List<Announcement> getAllAnnouncements() {
+        return announcementRepository.findAll();
+    }
+
+    @Override
+    public Announcement getAnnouncementById(Long id) throws AnnouncementNotFoundException {
+        Optional<Announcement> announcement = announcementRepository.findById(id);
+        if (announcement.isPresent()){
+            return announcement.get();
+        }else {
+            throw new AnnouncementNotFoundException();
+        }
+
+    }
+
+    @Override
+    public Announcement updateAnnouncement(@NonNull AnnouncementDTO announcementDTO, @NonNull Category category) throws AnnouncementNotFoundException {
+        Announcement announcement = announcementRepository.findById(announcementDTO.getId()).orElse(null);
+        if (announcement != null) {
             announcement.setName(announcementDTO.getName());
             announcement.setDescription(announcementDTO.getDescription());
             announcement.setPrice(announcementDTO.getPrice());
             announcement.setCreated_in(announcementDTO.getCreatedIn());
-            if (category != null){
-                announcement.setCategory(category);
-            }
+            announcement.setCategory(category);
             announcementRepository.saveAndFlush(announcement);
+            return announcement;
+        } else {
+            throw new AnnouncementNotFoundException();
         }
     }
 
-    public void saveAnnouncement(AnnouncementDTO announcementDTO, User author, Category category)
-    {
+    @Override
+    public Announcement saveAnnouncement(@NonNull AnnouncementDTO announcementDTO, @NonNull User author, @NonNull Category category) {
         Announcement announcement = new Announcement();
         announcement.setName(announcementDTO.getName());
         announcement.setDescription(announcementDTO.getDescription());
@@ -55,13 +71,15 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
         announcement.setCategory(category);
 
         announcementRepository.saveAndFlush(announcement);
+
+        return announcement;
     }
 
-    public boolean deleteAnnouncement(Long announcementId){
-        if (announcementId != 0 && announcementRepository.existsById(announcementId)){
-            return announcementRepository.deleteAllById(announcementId) > 0;
+    @Override
+    public void deleteAnnouncement(Long announcementId) throws AnnouncementNotFoundException {
+        if (announcementRepository.deleteAllById(announcementId) == 0) {
+            throw new AnnouncementNotFoundException();
         }
-        return false;
     }
 
 }

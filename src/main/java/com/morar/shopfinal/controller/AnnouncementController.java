@@ -1,6 +1,7 @@
 package com.morar.shopfinal.controller;
 
 import com.morar.shopfinal.dto.AnnouncementDTO;
+import com.morar.shopfinal.exception.AnnouncementNotFoundException;
 import com.morar.shopfinal.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,20 +29,35 @@ public class AnnouncementController {
 
     @GetMapping("/announcement/{id}")
     public ResponseEntity<AnnouncementDTO> getAnnouncement(@PathVariable Long id){
-        AnnouncementDTO announcement = announcementService.getAnnouncementById(id);
-        return new ResponseEntity<>(announcement, HttpStatus.OK);
+        try {
+            AnnouncementDTO announcement = announcementService.getAnnouncementById(id);
+            return new ResponseEntity<>(announcement, HttpStatus.OK);
+        } catch (AnnouncementNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping(value = "/announcement", consumes = "application/json")
     public ResponseEntity<Void> updateAnnouncement(@RequestBody AnnouncementDTO announcementDTO){
-        announcementService.updateAnnouncement(announcementDTO);
-        return ResponseEntity.accepted().build();
+        try {
+            announcementService.updateAnnouncement(announcementDTO);
+            return ResponseEntity.accepted().build();
+        } catch (AnnouncementNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(value = "/announcement/{id}")
     public ResponseEntity<Void> deleteAnnouncement(@PathVariable long id){
-        announcementService.deleteAnnouncement(id);
-        return ResponseEntity.accepted().build();
+        try {
+            announcementService.deleteAnnouncement(id);
+            return ResponseEntity.accepted().build();
+        } catch (AnnouncementNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping(value = "/announcement", consumes = "application/json")
