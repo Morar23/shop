@@ -26,20 +26,20 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
 
     public Announcement getAnnouncementByName(String name){return  announcementRepository.findByName(name);}
 
+    public Announcement getAnnouncementById(Long id){return  announcementRepository.findById(id).orElse(null);}
+
     @Override
     public void updateAnnouncement(AnnouncementDTO announcementDTO, Category category) {
-        if (announcementDTO != null){
-            if (announcementRepository.existsById(announcementDTO.getId())){
-                Announcement announcement = announcementRepository.getById(announcementDTO.getId());
-                announcement.setName(announcementDTO.getName());
-                announcement.setDescription(announcementDTO.getDescription());
-                announcement.setPrice(announcementDTO.getPrice());
-                announcement.setCreated_in(announcementDTO.getCreatedIn());
-                if (category != null){
-                    announcement.setCategory(category);
-                }
-                announcementRepository.saveAndFlush(announcement);
+        if (announcementDTO != null && announcementRepository.existsById(announcementDTO.getId())){
+            Announcement announcement = announcementRepository.getById(announcementDTO.getId());
+            announcement.setName(announcementDTO.getName());
+            announcement.setDescription(announcementDTO.getDescription());
+            announcement.setPrice(announcementDTO.getPrice());
+            announcement.setCreated_in(announcementDTO.getCreatedIn());
+            if (category != null){
+                announcement.setCategory(category);
             }
+            announcementRepository.saveAndFlush(announcement);
         }
     }
 
@@ -58,10 +58,8 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
     }
 
     public boolean deleteAnnouncement(Long announcementId){
-        if (announcementId != 0){
-            if (announcementRepository.existsById(announcementId)){
-                return announcementRepository.deleteAllById(announcementId) > 0;
-            }
+        if (announcementId != 0 && announcementRepository.existsById(announcementId)){
+            return announcementRepository.deleteAllById(announcementId) > 0;
         }
         return false;
     }
