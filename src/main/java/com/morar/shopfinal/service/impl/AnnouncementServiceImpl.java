@@ -8,13 +8,14 @@ import com.morar.shopfinal.entity.Announcement;
 import com.morar.shopfinal.entity.Category;
 import com.morar.shopfinal.entity.User;
 import com.morar.shopfinal.exception.AnnouncementNotFoundException;
+import com.morar.shopfinal.exception.CategoryNotFoundException;
 import com.morar.shopfinal.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AnnouncementServiceImpl implements AnnouncementService {
@@ -35,21 +36,16 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @Override
     public List<AnnouncementDTO> getAllAnnouncements() {
         List<Announcement> announcements = announcementDAO.getAllAnnouncements();
-        List<AnnouncementDTO> announcementDTOS = new LinkedList<>();
-        for (Announcement el : announcements){
-            AnnouncementDTO announcementDTO = new AnnouncementDTO(
-                    el.getId(),
-                    el.getName(),
-                    el.getDescription(),
-                    el.getPrice(),
-                    el.getAddress(),
-                    el.getCreated_in(),
-                    el.getCategory().getId(),
-                    el.getAuthor().getId()
-            );
-            announcementDTOS.add(announcementDTO);
-        }
-        return announcementDTOS;
+        return announcements.stream().map(el -> new AnnouncementDTO(
+                el.getId(),
+                el.getName(),
+                el.getDescription(),
+                el.getPrice(),
+                el.getAddress(),
+                el.getCreated_in(),
+                el.getCategory().getId(),
+                el.getAuthor().getId()
+        )).collect(Collectors.toList());
     }
 
     @Override
@@ -67,23 +63,20 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         );
     }
 
-    public void saveAnnouncement(@NonNull AnnouncementDTO announcementDTO) {
+    public void saveAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws CategoryNotFoundException {
         Category category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
         User user = userDAO.getUserById(1L);
         announcementDAO.saveAnnouncement(announcementDTO, user, category);
     }
 
     @Override
-    public void updateAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException {
-        Category category = null;
-        if (announcementDTO.getCategoryId() > 0){
-            category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
-        }
+    public void updateAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException, CategoryNotFoundException {
+        Category category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
         announcementDAO.updateAnnouncement(announcementDTO, category);
     }
 
     @Override
-    public void deleteAnnouncement(Long announcementId) throws AnnouncementNotFoundException {
-        announcementDAO.deleteAnnouncement(announcementId);
+    public void deleteAnnouncement(Long id) throws AnnouncementNotFoundException {
+        announcementDAO.deleteAnnouncement(id);
     }
 }

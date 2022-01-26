@@ -1,46 +1,72 @@
 package com.morar.shopfinal.controller;
 
-import com.morar.shopfinal.dao.impl.CategoryDAOImpl;
 import com.morar.shopfinal.dto.CategoryDTO;
-import com.morar.shopfinal.entity.Category;
+import com.morar.shopfinal.exception.CategoryNotFoundException;
+import com.morar.shopfinal.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
 public class CategoryController {
-    private final CategoryDAOImpl categoryDAO;
+    private final CategoryService categoryService;
+
     @Autowired
-    public CategoryController(CategoryDAOImpl categoryDAO) {this.categoryDAO = categoryDAO;}
+    public CategoryController(CategoryService categoryService) {this.categoryService = categoryService;}
 
     @GetMapping(value = "/categories")
-    public List<Category> getName(){
-        return categoryDAO.getAllCategory();
+    public ResponseEntity<List<CategoryDTO>> getCategories(){
+        List<CategoryDTO> categories = categoryService.getAllCategories();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/category")
-    public Category getCategoryByName(@RequestParam(required = false)String value) {
-        return  categoryDAO.getCategoryByName(value);
+    @GetMapping(value = "/category/{id}")
+    public ResponseEntity<CategoryDTO> getCategory(@PathVariable Long id) {
+        try {
+            CategoryDTO categoryDTO = categoryService.getCategoryById(id);
+            return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
+        } catch (CategoryNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping(value = "/category", consumes = "application/json")
-    public HttpStatus saveCategory(@RequestBody CategoryDTO categoryDTO){
-        categoryDAO.saveCategory(categoryDTO);
-        return HttpStatus.CREATED;
+    public ResponseEntity<Void> saveCategory(@RequestBody CategoryDTO categoryDTO){
+        try {
+            categoryService.saveCategory(categoryDTO);
+            URI categoryURI = new URI("/category");
+            return ResponseEntity.created(categoryURI).build();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PutMapping(value = "/category", consumes = "application/json")
-    public HttpStatus editUser(@RequestBody CategoryDTO categoryDTO) {
-        return categoryDAO.editCategory(categoryDTO) ? HttpStatus.ACCEPTED : HttpStatus.EXPECTATION_FAILED;
+    public ResponseEntity<Void> updateCategory(@RequestBody CategoryDTO categoryDTO) {
+        try {
+            categoryService.updateCategory(categoryDTO);
+            return ResponseEntity.accepted().build();
+        } catch (CategoryNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping(value = "/category", consumes = "application/json")
-    public HttpStatus deleteUser(@RequestBody CategoryDTO categoryDTO) {
-        return categoryDAO.deleteCategory(categoryDTO) ? HttpStatus.ACCEPTED : HttpStatus.EXPECTATION_FAILED;
+    @DeleteMapping(value = "/category/{id}", consumes = "application/json")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        try {
+            categoryService.deleteCategory(id);
+            return ResponseEntity.accepted().build();
+        }catch (CategoryNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.notFound().build();
     }
-
-
-
 }

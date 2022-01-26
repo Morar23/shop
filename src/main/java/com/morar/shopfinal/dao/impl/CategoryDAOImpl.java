@@ -2,12 +2,15 @@ package com.morar.shopfinal.dao.impl;
 import com.morar.shopfinal.dao.CategoryDAO;
 import com.morar.shopfinal.dto.CategoryDTO;
 import com.morar.shopfinal.entity.Category;
+import com.morar.shopfinal.exception.CategoryNotFoundException;
 import com.morar.shopfinal.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,42 +20,46 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Autowired
     public CategoryDAOImpl(CategoryRepository categoryRepository) {this.categoryRepository = categoryRepository;}
 
-    public List<Category> getAllCategory() {
+    @Override
+    public @NonNull List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
-    public Category getCategoryByName(String name) {return categoryRepository.findByName(name);}
-
     @Override
-    public Category getCategoryById(Long id) {
-        return categoryRepository.getById(id);
+    public Category getCategoryById(Long id) throws CategoryNotFoundException {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent()){
+            return category.get();
+        }else {
+            throw new CategoryNotFoundException();
+        }
     }
 
-    public void saveCategory(CategoryDTO categoryDTO) {
+    @Override
+    public Category updateCategory(@NonNull CategoryDTO categoryDTO) throws CategoryNotFoundException {
+        Category category = categoryRepository.findById(categoryDTO.getId()).orElse(null);
+        if (category != null){
+            category.setName(categoryDTO.getName());
+            categoryRepository.saveAndFlush(category);
+            return category;
+        }else {
+            throw new CategoryNotFoundException();
+        }
+    }
+
+    @Override
+    public Category saveCategory(@NonNull CategoryDTO categoryDTO) {
         Category category = new Category();
         category.setName(categoryDTO.getName());
         categoryRepository.saveAndFlush(category);
+        return category;
     }
 
-    public boolean editCategory(CategoryDTO categoryDTO) {
-        if (categoryDTO != null && !categoryDTO.getName().isEmpty()) {
-            if (categoryRepository.existsCategoriesByName(categoryDTO.getName())) {
-                Category category = categoryRepository.findByName(categoryDTO.getName());
-                category.setName(categoryDTO.getName());
-                categoryRepository.saveAndFlush(category);
-                return true;
-            }
+    @Override
+    public void deleteCategory(Long id) throws CategoryNotFoundException {
+        if (categoryRepository.deleteAllById(id) == 0){
+            throw new CategoryNotFoundException();
         }
-        return false;
-    }
-
-    public boolean deleteCategory(CategoryDTO categoryDTO){
-        if (categoryDTO != null && !categoryDTO.getName().isEmpty()) {
-            if (categoryRepository.existsCategoriesByName(categoryDTO.getName())) {
-                return  categoryRepository.deleteByName(categoryDTO.getName()) > 0;
-            }
-        }
-        return false;
     }
 }
 

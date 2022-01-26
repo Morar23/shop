@@ -2,17 +2,19 @@ package com.morar.shopfinal.dao;
 
 import com.morar.shopfinal.dto.CategoryDTO;
 import com.morar.shopfinal.entity.Category;
+import com.morar.shopfinal.exception.CategoryNotFoundException;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 
 public interface CategoryDAO {
-    List<Category> getAllCategory();
+    List<Category> getAllCategories();
 
-    Category getCategoryByName(String name);
+    Category getCategoryById(Long id) throws CategoryNotFoundException;
 
-    Category getCategoryById(Long id);
+    Category updateCategory(@NonNull CategoryDTO categoryDTO) throws CategoryNotFoundException;
 
-    boolean editCategory(CategoryDTO categoryDTO);
+    Category saveCategory(@NonNull CategoryDTO categoryDTO);
 
-    boolean deleteCategory(CategoryDTO categoryDTO);
+    void deleteCategory(Long id) throws CategoryNotFoundException;
 }
