@@ -3,6 +3,7 @@ package com.morar.shopfinal.controller;
 import com.morar.shopfinal.dto.AnnouncementDTO;
 import com.morar.shopfinal.exception.AnnouncementNotFoundException;
 import com.morar.shopfinal.exception.CategoryNotFoundException;
+import com.morar.shopfinal.exception.UserNotFoundException;
 import com.morar.shopfinal.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,7 @@ public class AnnouncementController {
             announcementService.saveAnnouncement(announcementDTO);
             URI announcementURI = new URI("/announcement");
             return ResponseEntity.created(announcementURI).build();
-        } catch (CategoryNotFoundException e) {
+        } catch (CategoryNotFoundException | UserNotFoundException e) {
             e.printStackTrace();
             return ResponseEntity.notFound().build();
         } catch (URISyntaxException e) {

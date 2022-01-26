@@ -14,9 +14,11 @@ public interface AnnouncementDAO {
 
     Announcement getAnnouncementById(Long id) throws AnnouncementNotFoundException;
 
+    Announcement saveAnnouncement(@NonNull AnnouncementDTO announcementDTO, @NonNull User author, @NonNull Category category);
+
     Announcement updateAnnouncement(@NonNull AnnouncementDTO announcementDTO, @NonNull Category category) throws AnnouncementNotFoundException;
 
-    void deleteAnnouncement(Long announcementId) throws AnnouncementNotFoundException;
+    void deleteAnnouncement(Long id) throws AnnouncementNotFoundException;
 
-    Announcement saveAnnouncement(@NonNull AnnouncementDTO announcementDTO, @NonNull User author, @NonNull Category category);
+    void deleteAllAnnouncementByAuthorId(Long userId);
 }

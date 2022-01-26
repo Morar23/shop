@@ -25,16 +25,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDTO> getAllCategories() {
         List<Category> categories = categoryDAO.getAllCategories();
-        return categories.stream().map(el -> new CategoryDTO(el.getId(), el.getName())).collect(Collectors.toList());
+        return categories.stream().map(this::transformCategoryToCategoryDTO).collect(Collectors.toList());
     }
 
     @Override
     public CategoryDTO getCategoryById(Long id) throws CategoryNotFoundException {
         Category category = categoryDAO.getCategoryById(id);
-        return new CategoryDTO(
-                category.getId(),
-                category.getName()
-        );
+        return transformCategoryToCategoryDTO(category);
     }
 
     @Override
@@ -50,5 +47,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategory(Long id) throws CategoryNotFoundException {
         categoryDAO.deleteCategory(id);
+    }
+
+    private CategoryDTO transformCategoryToCategoryDTO(Category category) {
+        return new CategoryDTO(
+                category.getId(),
+                category.getName()
+        );
     }
 }

@@ -6,11 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByName(String name);
+    int deleteAllById(Long id);
 
-    User findByMail(String mail);
-
-    boolean existsUsersByMail(String mail);
-
-    long deleteByMail(String mail);
+    boolean existsUserById(Long id);
 }
