@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -24,13 +22,13 @@ public class AnnouncementController {
     }
 
     @GetMapping("/announcements")
-    public ResponseEntity<List<AnnouncementDTO>> getAnnouncements(){
+    public ResponseEntity<List<AnnouncementDTO>> getAnnouncements() {
         List<AnnouncementDTO> announcements = announcementService.getAllAnnouncements();
         return new ResponseEntity<>(announcements, HttpStatus.OK);
     }
 
     @GetMapping("/announcement/{id}")
-    public ResponseEntity<AnnouncementDTO> getAnnouncement(@PathVariable Long id){
+    public ResponseEntity<AnnouncementDTO> getAnnouncement(@PathVariable Long id) {
         try {
             AnnouncementDTO announcement = announcementService.getAnnouncementById(id);
             return new ResponseEntity<>(announcement, HttpStatus.OK);
@@ -52,7 +50,7 @@ public class AnnouncementController {
     }
 
     @PutMapping(value = "/announcement", consumes = "application/json")
-    public ResponseEntity<AnnouncementDTO> updateAnnouncement(@RequestBody AnnouncementDTO announcementDTO){
+    public ResponseEntity<AnnouncementDTO> updateAnnouncement(@RequestBody AnnouncementDTO announcementDTO) {
         try {
             AnnouncementDTO announcement = announcementService.updateAnnouncement(announcementDTO);
             return new ResponseEntity<>(announcement, HttpStatus.OK);
@@ -63,7 +61,7 @@ public class AnnouncementController {
     }
 
     @DeleteMapping(value = "/announcement/{id}")
-    public ResponseEntity<Void> deleteAnnouncement(@PathVariable long id){
+    public ResponseEntity<Void> deleteAnnouncement(@PathVariable long id) {
         try {
             announcementService.deleteAnnouncement(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

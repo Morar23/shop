@@ -1,6 +1,5 @@
 package com.morar.shopfinal.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data

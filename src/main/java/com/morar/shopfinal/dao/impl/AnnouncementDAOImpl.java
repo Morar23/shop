@@ -35,9 +35,9 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
     @Override
     public Announcement getAnnouncementById(Long id) throws AnnouncementNotFoundException {
         Optional<Announcement> announcement = announcementRepository.findById(id);
-        if (announcement.isPresent()){
+        if (announcement.isPresent()) {
             return announcement.get();
-        }else {
+        } else {
             throw new AnnouncementNotFoundException();
         }
 
@@ -49,7 +49,7 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
         announcement.setName(announcementDTO.getName());
         announcement.setDescription(announcementDTO.getDescription());
         announcement.setPrice(announcementDTO.getPrice());
-        announcement.setCreated_in(announcementDTO.getCreatedIn());
+        announcement.setCreatedIn(announcementDTO.getCreatedIn());
         announcement.setAddress(announcementDTO.getAddress());
         announcement.setAuthor(author);
         announcement.setCategory(category);
@@ -64,7 +64,7 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
             announcement.setName(announcementDTO.getName());
             announcement.setDescription(announcementDTO.getDescription());
             announcement.setPrice(announcementDTO.getPrice());
-            announcement.setCreated_in(announcementDTO.getCreatedIn());
+            announcement.setCreatedIn(announcementDTO.getCreatedIn());
             announcement.setCategory(category);
             announcementRepository.saveAndFlush(announcement);
             return announcement;

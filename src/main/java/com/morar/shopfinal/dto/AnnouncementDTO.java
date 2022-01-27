@@ -1,7 +1,5 @@
 package com.morar.shopfinal.dto;
 
-import lombok.NonNull;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,25 +8,21 @@ public class AnnouncementDTO {
 
     private long id;
 
-    @NonNull
-    private  String name;
+    private String name;
 
-    @NonNull
     private String description;
 
     private double price;
 
-    @NonNull
     private String address;
 
-    @NonNull
     private Date createdIn;
 
     private long categoryId;
 
     private long authorId;
 
-    public AnnouncementDTO(long id, @NonNull String name, @NonNull String description, double price, @NonNull String address, @NonNull Date createdIn, long categoryId, long authorId) {
+    public AnnouncementDTO(long id, String name, String description, double price, String address, Date createdIn, long categoryId, long authorId) {
         this.id = id;
         this.name = name;
         this.description = description;

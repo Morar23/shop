@@ -63,14 +63,14 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         announcementDAO.deleteAnnouncement(id);
     }
 
-    private AnnouncementDTO transformAnnouncementToAnnouncementDTO(Announcement announcement){
+    private AnnouncementDTO transformAnnouncementToAnnouncementDTO(Announcement announcement) {
         return new AnnouncementDTO(
                 announcement.getId(),
                 announcement.getName(),
                 announcement.getDescription(),
                 announcement.getPrice(),
                 announcement.getAddress(),
-                announcement.getCreated_in(),
+                announcement.getCreatedIn(),
                 announcement.getCategory().getId(),
                 announcement.getAuthor().getId()
         );

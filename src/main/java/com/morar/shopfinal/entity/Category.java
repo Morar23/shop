@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="category")
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name="category_name", nullable = false)
+    @Column(name = "category_name", nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "category", orphanRemoval = true)

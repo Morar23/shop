@@ -11,7 +11,7 @@ public class UserDTO {
     private String name;
 
     @NonNull
-    private  String mail;
+    private String mail;
 
     @NonNull
     private String phone;

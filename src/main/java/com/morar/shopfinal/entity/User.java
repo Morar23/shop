@@ -15,16 +15,16 @@ public class User {
     @Column(name = "user_name", nullable = false)
     private String name;
 
-    @Column(name = "mail",nullable = false)
-    private  String mail;
+    @Column(name = "mail", nullable = false)
+    private String mail;
 
-    @Column(name = "password",nullable = false)
-    private  String password;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @Column(name = "phone",nullable = false)
+    @Column(name = "phone", nullable = false)
     private String phone;
 
-    @Column(name = "role",nullable = false)
+    @Column(name = "role", nullable = false)
     private String role;
 
     @OneToMany(mappedBy = "author", orphanRemoval = true)

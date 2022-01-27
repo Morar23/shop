@@ -22,7 +22,7 @@ public class Announcement {
     private double price;
 
     @Column(name = "created_in", nullable = false)
-    private Date created_in;
+    private Date createdIn;
 
     @Column(name = "address", nullable = false)
     private String address;
@@ -63,10 +63,12 @@ public class Announcement {
         this.price = price;
     }
 
-    public Date getCreated_in() {return created_in;}
+    public Date getCreatedIn() {
+        return createdIn;
+    }
 
-    public void setCreated_in(Date created_in) {
-        this.created_in = created_in;
+    public void setCreatedIn(Date createdIn) {
+        this.createdIn = createdIn;
     }
 
     public String getAddress() {

@@ -51,15 +51,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) throws UserNotFoundException {
-        if (userDAO.isUserExist(id)){
+        if (userDAO.isUserExist(id)) {
             announcementDAO.deleteAllAnnouncementByAuthorId(id);
             userDAO.deleteUser(id);
-        }else {
+        } else {
             throw new UserNotFoundException();
         }
     }
 
-    private UserDTO transformUserToUserDTO(User user){
+    private UserDTO transformUserToUserDTO(User user) {
         return new UserDTO(
                 user.getId(),
                 user.getName(),

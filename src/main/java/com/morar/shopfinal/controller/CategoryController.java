@@ -15,10 +15,12 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {this.categoryService = categoryService;}
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping(value = "/categories")
-    public ResponseEntity<List<CategoryDTO>> getCategories(){
+    public ResponseEntity<List<CategoryDTO>> getCategories() {
         List<CategoryDTO> categories = categoryService.getAllCategories();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
@@ -35,7 +37,7 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/category", consumes = "application/json")
-    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO categoryDTO) {
         CategoryDTO category = categoryService.saveCategory(categoryDTO);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
@@ -56,7 +58,7 @@ public class CategoryController {
         try {
             categoryService.deleteCategory(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (CategoryNotFoundException e) {
+        } catch (CategoryNotFoundException e) {
             e.printStackTrace();
         }
         return ResponseEntity.notFound().build();

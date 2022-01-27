@@ -1,4 +1,5 @@
 package com.morar.shopfinal.dao.impl;
+
 import com.morar.shopfinal.dao.CategoryDAO;
 import com.morar.shopfinal.dto.CategoryDTO;
 import com.morar.shopfinal.entity.Category;
@@ -18,19 +19,22 @@ public class CategoryDAOImpl implements CategoryDAO {
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoryDAOImpl(CategoryRepository categoryRepository) {this.categoryRepository = categoryRepository;}
+    public CategoryDAOImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
-    public @NonNull List<Category> getAllCategories() {
+    public @NonNull
+    List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
     @Override
     public Category getCategoryById(Long id) throws CategoryNotFoundException {
         Optional<Category> category = categoryRepository.findById(id);
-        if (category.isPresent()){
+        if (category.isPresent()) {
             return category.get();
-        }else {
+        } else {
             throw new CategoryNotFoundException();
         }
     }
@@ -38,11 +42,11 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public Category updateCategory(@NonNull CategoryDTO categoryDTO) throws CategoryNotFoundException {
         Category category = categoryRepository.findById(categoryDTO.getId()).orElse(null);
-        if (category != null){
+        if (category != null) {
             category.setName(categoryDTO.getName());
             categoryRepository.saveAndFlush(category);
             return category;
-        }else {
+        } else {
             throw new CategoryNotFoundException();
         }
     }
@@ -57,7 +61,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public void deleteCategory(Long id) throws CategoryNotFoundException {
-        if (categoryRepository.deleteAllById(id) == 0){
+        if (categoryRepository.deleteAllById(id) == 0) {
             throw new CategoryNotFoundException();
         }
     }

@@ -15,7 +15,7 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -30,13 +30,13 @@ public class UserController {
         try {
             UserDTO userDTO = userService.getUserById(id);
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
-        }catch (UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             e.printStackTrace();
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PostMapping(value="/user", consumes = "application/json")
+    @PostMapping(value = "/user", consumes = "application/json")
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         UserDTO user = userService.saveUser(userDTO);
         return new ResponseEntity<>(user, HttpStatus.OK);

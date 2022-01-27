@@ -20,19 +20,21 @@ public class UserDAOImpl implements UserDAO {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserDAOImpl(UserRepository userRepository){
+    public UserDAOImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public List<User> getAllUsers(){return userRepository.findAll();}
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
     @Override
-    public User getUserById (Long id) throws UserNotFoundException {
+    public User getUserById(Long id) throws UserNotFoundException {
         Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             return user.get();
-        }else {
+        } else {
             throw new UserNotFoundException();
         }
     }
@@ -57,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User updateUser(@NonNull UserDTO userDTO) throws UserNotFoundException {
         User user = userRepository.findById(userDTO.getId()).orElse(null);
-        if (user != null){
+        if (user != null) {
             user.setMail(userDTO.getMail());
             user.setPassword(userDTO.getPassword());
             user.setPhone(userDTO.getPhone());
@@ -65,14 +67,14 @@ public class UserDAOImpl implements UserDAO {
             user.setRole(userDTO.getRole());
             userRepository.saveAndFlush(user);
             return user;
-        }else {
+        } else {
             throw new UserNotFoundException();
         }
     }
 
     @Override
     public void deleteUser(Long id) throws UserNotFoundException {
-        if (userRepository.deleteAllById(id) == 0){
+        if (userRepository.deleteAllById(id) == 0) {
             throw new UserNotFoundException();
         }
     }
