@@ -1,28 +1,30 @@
 package com.morar.shopfinal.dto;
 
+import org.springframework.lang.NonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AnnouncementDTO {
 
-    private long id;
+    private Long id;
 
     private String name;
 
     private String description;
 
-    private double price;
+    private Double price;
 
     private String address;
 
     private Date createdIn;
 
-    private long categoryId;
+    private Long categoryId;
 
-    private long authorId;
+    private Long authorId;
 
-    public AnnouncementDTO(long id, String name, String description, double price, String address, Date createdIn, long categoryId, long authorId) {
+    public AnnouncementDTO(Long id, String name, String description, Double price, String address, Date createdIn, Long categoryId, Long authorId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -33,14 +35,16 @@ public class AnnouncementDTO {
         this.authorId = authorId;
     }
 
-    public long getId() {
+    @NonNull
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
@@ -49,6 +53,7 @@ public class AnnouncementDTO {
         this.name = name;
     }
 
+    @NonNull
     public String getDescription() {
         return description;
     }
@@ -57,14 +62,16 @@ public class AnnouncementDTO {
         this.description = description;
     }
 
-    public double getPrice() {
+    @NonNull
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
+    @NonNull
     public String getAddress() {
         return address;
     }
@@ -73,6 +80,7 @@ public class AnnouncementDTO {
         this.address = address;
     }
 
+    @NonNull
     public Date getCreatedIn() {
         return createdIn;
     }
@@ -81,19 +89,21 @@ public class AnnouncementDTO {
         this.createdIn = new SimpleDateFormat("dd/MM/yyyy").parse(createdIn);
     }
 
-    public long getCategoryId() {
+    @NonNull
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
-    public long getAuthorId() {
+    @NonNull
+    public Long getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(long authorId) {
+    public void setAuthorId(Long authorId) {
         this.authorId = authorId;
     }
 }

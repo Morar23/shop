@@ -1,8 +1,7 @@
 package com.morar.shopfinal.dto;
 
-import lombok.Data;
+import org.springframework.lang.NonNull;
 
-@Data
 public class CategoryDTO {
     private Long id;
 
@@ -10,6 +9,24 @@ public class CategoryDTO {
 
     public CategoryDTO(Long id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    @NonNull
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 }
