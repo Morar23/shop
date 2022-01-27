@@ -3,7 +3,7 @@ package com.morar.shopfinal.service.impl;
 import com.morar.shopfinal.dao.CategoryDAO;
 import com.morar.shopfinal.dto.CategoryDTO;
 import com.morar.shopfinal.entity.Category;
-import com.morar.shopfinal.exception.CategoryNotFoundException;
+import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
 import com.morar.shopfinal.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;

@@ -1,7 +1,7 @@
 package com.morar.shopfinal.controller;
 
 import com.morar.shopfinal.dto.UserDTO;
-import com.morar.shopfinal.exception.UserNotFoundException;
+import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import com.morar.shopfinal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +26,9 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-        try {
-            UserDTO userDTO = userService.getUserById(id);
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) throws UserNotFoundException {
+        UserDTO userDTO = userService.getUserById(id);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @PostMapping(value = "/user", consumes = "application/json")
@@ -43,25 +38,14 @@ public class UserController {
     }
 
     @PutMapping(value = "/user", consumes = "application/json")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
-        try {
-            UserDTO user = userService.updateUser(userDTO);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) throws UserNotFoundException {
+        UserDTO user = userService.updateUser(userDTO);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/user/{id}", consumes = "application/json")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        try {
-            userService.deleteUser(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws UserNotFoundException {
+        userService.deleteUser(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
 }

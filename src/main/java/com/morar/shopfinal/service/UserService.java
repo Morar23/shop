@@ -1,7 +1,7 @@
 package com.morar.shopfinal.service;
 
 import com.morar.shopfinal.dto.UserDTO;
-import com.morar.shopfinal.exception.UserNotFoundException;
+import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import org.springframework.lang.NonNull;
 
 import java.util.List;

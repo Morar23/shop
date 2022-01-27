@@ -1,7 +1,7 @@
 package com.morar.shopfinal.service;
 
 import com.morar.shopfinal.dto.CategoryDTO;
-import com.morar.shopfinal.exception.CategoryNotFoundException;
+import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
 import org.springframework.lang.NonNull;
 
 import java.util.List;

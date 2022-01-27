@@ -1,9 +1,9 @@
 package com.morar.shopfinal.service;
 
 import com.morar.shopfinal.dto.AnnouncementDTO;
-import com.morar.shopfinal.exception.AnnouncementNotFoundException;
-import com.morar.shopfinal.exception.CategoryNotFoundException;
-import com.morar.shopfinal.exception.UserNotFoundException;
+import com.morar.shopfinal.exception.impl.AnnouncementNotFoundException;
+import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
+import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import org.springframework.lang.NonNull;
 
 import java.util.List;

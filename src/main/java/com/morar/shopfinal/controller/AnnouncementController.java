@@ -1,9 +1,9 @@
 package com.morar.shopfinal.controller;
 
 import com.morar.shopfinal.dto.AnnouncementDTO;
-import com.morar.shopfinal.exception.AnnouncementNotFoundException;
-import com.morar.shopfinal.exception.CategoryNotFoundException;
-import com.morar.shopfinal.exception.UserNotFoundException;
+import com.morar.shopfinal.exception.impl.AnnouncementNotFoundException;
+import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
+import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import com.morar.shopfinal.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,46 +28,26 @@ public class AnnouncementController {
     }
 
     @GetMapping("/announcement/{id}")
-    public ResponseEntity<AnnouncementDTO> getAnnouncement(@PathVariable Long id) {
-        try {
-            AnnouncementDTO announcement = announcementService.getAnnouncementById(id);
-            return new ResponseEntity<>(announcement, HttpStatus.OK);
-        } catch (AnnouncementNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<AnnouncementDTO> getAnnouncement(@PathVariable Long id) throws AnnouncementNotFoundException {
+        AnnouncementDTO announcement = announcementService.getAnnouncementById(id);
+        return new ResponseEntity<>(announcement, HttpStatus.OK);
     }
 
     @PostMapping(value = "/announcement", consumes = "application/json")
-    public ResponseEntity<AnnouncementDTO> saveAnnouncement(@RequestBody AnnouncementDTO announcementDTO) {
-        try {
-            AnnouncementDTO announcement = announcementService.saveAnnouncement(announcementDTO);
-            return new ResponseEntity<>(announcement, HttpStatus.OK);
-        } catch (CategoryNotFoundException | UserNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<AnnouncementDTO> saveAnnouncement(@RequestBody AnnouncementDTO announcementDTO) throws UserNotFoundException, CategoryNotFoundException {
+        AnnouncementDTO announcement = announcementService.saveAnnouncement(announcementDTO);
+        return new ResponseEntity<>(announcement, HttpStatus.OK);
     }
 
     @PutMapping(value = "/announcement", consumes = "application/json")
-    public ResponseEntity<AnnouncementDTO> updateAnnouncement(@RequestBody AnnouncementDTO announcementDTO) {
-        try {
-            AnnouncementDTO announcement = announcementService.updateAnnouncement(announcementDTO);
-            return new ResponseEntity<>(announcement, HttpStatus.OK);
-        } catch (AnnouncementNotFoundException | CategoryNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<AnnouncementDTO> updateAnnouncement(@RequestBody AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException, CategoryNotFoundException {
+        AnnouncementDTO announcement = announcementService.updateAnnouncement(announcementDTO);
+        return new ResponseEntity<>(announcement, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/announcement/{id}")
-    public ResponseEntity<Void> deleteAnnouncement(@PathVariable long id) {
-        try {
-            announcementService.deleteAnnouncement(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (AnnouncementNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deleteAnnouncement(@PathVariable long id) throws AnnouncementNotFoundException {
+        announcementService.deleteAnnouncement(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

@@ -4,7 +4,7 @@ import com.morar.shopfinal.dao.AnnouncementDAO;
 import com.morar.shopfinal.dao.UserDAO;
 import com.morar.shopfinal.dto.UserDTO;
 import com.morar.shopfinal.entity.User;
-import com.morar.shopfinal.exception.UserNotFoundException;
+import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import com.morar.shopfinal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,10 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
-        //Temporary solution
-        //TODO
-        boolean isAdmin = false;
-        return transformUserToUserDTO(userDAO.saveUser(userDTO, isAdmin));
+        return transformUserToUserDTO(userDAO.saveUser(userDTO));
     }
 
     @Override

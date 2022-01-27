@@ -4,7 +4,7 @@ import com.morar.shopfinal.dto.AnnouncementDTO;
 import com.morar.shopfinal.entity.Announcement;
 import com.morar.shopfinal.entity.Category;
 import com.morar.shopfinal.entity.User;
-import com.morar.shopfinal.exception.AnnouncementNotFoundException;
+import com.morar.shopfinal.exception.impl.AnnouncementNotFoundException;
 import org.springframework.lang.NonNull;
 
 import java.util.List;

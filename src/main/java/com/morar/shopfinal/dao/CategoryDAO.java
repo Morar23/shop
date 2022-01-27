@@ -2,7 +2,7 @@ package com.morar.shopfinal.dao;
 
 import com.morar.shopfinal.dto.CategoryDTO;
 import com.morar.shopfinal.entity.Category;
-import com.morar.shopfinal.exception.CategoryNotFoundException;
+import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
 import org.springframework.lang.NonNull;
 
 import java.util.List;

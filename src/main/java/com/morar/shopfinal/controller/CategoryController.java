@@ -1,7 +1,7 @@
 package com.morar.shopfinal.controller;
 
 import com.morar.shopfinal.dto.CategoryDTO;
-import com.morar.shopfinal.exception.CategoryNotFoundException;
+import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
 import com.morar.shopfinal.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +26,9 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/category/{id}")
-    public ResponseEntity<CategoryDTO> getCategory(@PathVariable Long id) {
-        try {
-            CategoryDTO categoryDTO = categoryService.getCategoryById(id);
-            return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
-        } catch (CategoryNotFoundException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<CategoryDTO> getCategory(@PathVariable Long id) throws CategoryNotFoundException {
+        CategoryDTO categoryDTO = categoryService.getCategoryById(id);
+        return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
     }
 
     @PostMapping(value = "/category", consumes = "application/json")
@@ -43,24 +38,14 @@ public class CategoryController {
     }
 
     @PutMapping(value = "/category", consumes = "application/json")
-    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody CategoryDTO categoryDTO) {
-        try {
-            CategoryDTO category = categoryService.updateCategory(categoryDTO);
-            return new ResponseEntity<>(category, HttpStatus.OK);
-        } catch (CategoryNotFoundException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody CategoryDTO categoryDTO) throws CategoryNotFoundException {
+        CategoryDTO category = categoryService.updateCategory(categoryDTO);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/category/{id}", consumes = "application/json")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        try {
-            categoryService.deleteCategory(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (CategoryNotFoundException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws CategoryNotFoundException {
+        categoryService.deleteCategory(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
