@@ -12,9 +12,9 @@ public interface CategoryService {
 
     CategoryDTO getCategoryById(Long id) throws CategoryNotFoundException;
 
-    void saveCategory(@NonNull CategoryDTO categoryDTO);
+    CategoryDTO saveCategory(@NonNull CategoryDTO categoryDTO);
 
-    void updateCategory(@NonNull CategoryDTO categoryDTO) throws CategoryNotFoundException;
+    CategoryDTO updateCategory(@NonNull CategoryDTO categoryDTO) throws CategoryNotFoundException;
 
     void deleteCategory(Long id) throws CategoryNotFoundException;
 }

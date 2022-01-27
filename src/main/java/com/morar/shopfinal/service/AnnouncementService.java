@@ -13,9 +13,9 @@ public interface AnnouncementService {
 
     AnnouncementDTO getAnnouncementById(Long id) throws AnnouncementNotFoundException;
 
-    void saveAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws CategoryNotFoundException, UserNotFoundException;
+    AnnouncementDTO saveAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws CategoryNotFoundException, UserNotFoundException;
 
-    void updateAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException, CategoryNotFoundException;
+    AnnouncementDTO updateAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException, CategoryNotFoundException;
 
     void deleteAnnouncement(Long id) throws AnnouncementNotFoundException;
 }

@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User saveUser(@NonNull UserDTO userDTO, boolean isAdmin){
+    public User saveUser(@NonNull UserDTO userDTO, boolean isAdmin) {
         User user = new User();
         user.setMail(userDTO.getMail());
         user.setName(userDTO.getName());

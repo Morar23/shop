@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -37,22 +35,16 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/category", consumes = "application/json")
-    public ResponseEntity<Void> saveCategory(@RequestBody CategoryDTO categoryDTO){
-        try {
-            categoryService.saveCategory(categoryDTO);
-            URI categoryURI = new URI("/category");
-            return ResponseEntity.created(categoryURI).build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO categoryDTO){
+        CategoryDTO category = categoryService.saveCategory(categoryDTO);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     @PutMapping(value = "/category", consumes = "application/json")
-    public ResponseEntity<Void> updateCategory(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody CategoryDTO categoryDTO) {
         try {
-            categoryService.updateCategory(categoryDTO);
-            return ResponseEntity.accepted().build();
+            CategoryDTO category = categoryService.updateCategory(categoryDTO);
+            return new ResponseEntity<>(category, HttpStatus.OK);
         } catch (CategoryNotFoundException e) {
             e.printStackTrace();
         }
@@ -63,7 +55,7 @@ public class CategoryController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         try {
             categoryService.deleteCategory(id);
-            return ResponseEntity.accepted().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }catch (CategoryNotFoundException e) {
             e.printStackTrace();
         }

@@ -37,16 +37,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDTO userDTO) throws UserNotFoundException {
+    public UserDTO saveUser(UserDTO userDTO) {
         //Temporary solution
         //TODO
         boolean isAdmin = false;
-        userDAO.saveUser(userDTO, isAdmin);
+        return transformUserToUserDTO(userDAO.saveUser(userDTO, isAdmin));
     }
 
     @Override
-    public void updateUser(UserDTO userDTO) throws UserNotFoundException {
-        userDAO.updateUser(userDTO);
+    public UserDTO updateUser(UserDTO userDTO) throws UserNotFoundException {
+        return transformUserToUserDTO(userDAO.updateUser(userDTO));
     }
 
     @Override

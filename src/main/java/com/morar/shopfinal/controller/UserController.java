@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -34,45 +32,36 @@ public class UserController {
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
         }catch (UserNotFoundException e){
             e.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PostMapping(value="/user", consumes = "application/json")
-    public ResponseEntity<Void> saveUser(@RequestBody UserDTO userDTO) {
-        try {
-            userService.saveUser(userDTO);
-            URI userURI = new URI("/user");
-            return ResponseEntity.created(userURI).build();
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
+        UserDTO user = userService.saveUser(userDTO);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping(value = "/user", consumes = "application/json")
-    public ResponseEntity<Void> updateUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
         try {
-            userService.updateUser(userDTO);
-            return ResponseEntity.accepted().build();
+            UserDTO user = userService.updateUser(userDTO);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (UserNotFoundException e) {
             e.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(value = "/user/{id}", consumes = "application/json")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUser(id);
-            return ResponseEntity.accepted().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (UserNotFoundException e) {
             e.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
 }

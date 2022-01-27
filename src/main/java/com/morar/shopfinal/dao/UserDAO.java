@@ -14,7 +14,7 @@ public interface UserDAO {
 
     boolean isUserExist(Long id);
 
-    User saveUser(@NonNull UserDTO userDTO, boolean isAdmin) throws UserNotFoundException;
+    User saveUser(@NonNull UserDTO userDTO, boolean isAdmin);
 
     User updateUser(@NonNull UserDTO userDTO) throws UserNotFoundException;
 

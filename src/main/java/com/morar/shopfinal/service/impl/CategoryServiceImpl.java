@@ -35,13 +35,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void saveCategory(@NonNull CategoryDTO categoryDTO) {
-        categoryDAO.saveCategory(categoryDTO);
+    public CategoryDTO saveCategory(@NonNull CategoryDTO categoryDTO) {
+        return transformCategoryToCategoryDTO(categoryDAO.saveCategory(categoryDTO));
     }
 
     @Override
-    public void updateCategory(@NonNull CategoryDTO categoryDTO) throws CategoryNotFoundException {
-        categoryDAO.updateCategory(categoryDTO);
+    public CategoryDTO updateCategory(@NonNull CategoryDTO categoryDTO) throws CategoryNotFoundException {
+        return transformCategoryToCategoryDTO(categoryDAO.updateCategory(categoryDTO));
     }
 
     @Override

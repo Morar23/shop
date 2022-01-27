@@ -36,44 +36,40 @@ public class AnnouncementController {
             return new ResponseEntity<>(announcement, HttpStatus.OK);
         } catch (AnnouncementNotFoundException e) {
             e.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PostMapping(value = "/announcement", consumes = "application/json")
-    public ResponseEntity<Void> saveAnnouncement(@RequestBody AnnouncementDTO announcementDTO) {
+    public ResponseEntity<AnnouncementDTO> saveAnnouncement(@RequestBody AnnouncementDTO announcementDTO) {
         try {
-            announcementService.saveAnnouncement(announcementDTO);
-            URI announcementURI = new URI("/announcement");
-            return ResponseEntity.created(announcementURI).build();
+            AnnouncementDTO announcement = announcementService.saveAnnouncement(announcementDTO);
+            return new ResponseEntity<>(announcement, HttpStatus.OK);
         } catch (CategoryNotFoundException | UserNotFoundException e) {
             e.printStackTrace();
             return ResponseEntity.notFound().build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build();
         }
     }
 
     @PutMapping(value = "/announcement", consumes = "application/json")
-    public ResponseEntity<Void> updateAnnouncement(@RequestBody AnnouncementDTO announcementDTO){
+    public ResponseEntity<AnnouncementDTO> updateAnnouncement(@RequestBody AnnouncementDTO announcementDTO){
         try {
-            announcementService.updateAnnouncement(announcementDTO);
-            return ResponseEntity.accepted().build();
+            AnnouncementDTO announcement = announcementService.updateAnnouncement(announcementDTO);
+            return new ResponseEntity<>(announcement, HttpStatus.OK);
         } catch (AnnouncementNotFoundException | CategoryNotFoundException e) {
             e.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(value = "/announcement/{id}")
     public ResponseEntity<Void> deleteAnnouncement(@PathVariable long id){
         try {
             announcementService.deleteAnnouncement(id);
-            return ResponseEntity.accepted().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (AnnouncementNotFoundException e) {
             e.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 }

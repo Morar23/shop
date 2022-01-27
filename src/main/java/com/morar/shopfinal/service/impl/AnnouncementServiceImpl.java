@@ -46,16 +46,16 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         return transformAnnouncementToAnnouncementDTO(announcement);
     }
 
-    public void saveAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws CategoryNotFoundException, UserNotFoundException {
+    public AnnouncementDTO saveAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws CategoryNotFoundException, UserNotFoundException {
         Category category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
         User user = userDAO.getUserById(1L);
-        announcementDAO.saveAnnouncement(announcementDTO, user, category);
+        return transformAnnouncementToAnnouncementDTO(announcementDAO.saveAnnouncement(announcementDTO, user, category));
     }
 
     @Override
-    public void updateAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException, CategoryNotFoundException {
+    public AnnouncementDTO updateAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException, CategoryNotFoundException {
         Category category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
-        announcementDAO.updateAnnouncement(announcementDTO, category);
+        return transformAnnouncementToAnnouncementDTO(announcementDAO.updateAnnouncement(announcementDTO, category));
     }
 
     @Override

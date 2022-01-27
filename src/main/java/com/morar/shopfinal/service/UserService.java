@@ -11,9 +11,9 @@ public interface UserService {
 
     UserDTO getUserById(Long id) throws UserNotFoundException;
 
-    void saveUser(@NonNull UserDTO userDTO) throws UserNotFoundException;
+    UserDTO saveUser(@NonNull UserDTO userDTO);
 
-    void updateUser(@NonNull UserDTO userDTO) throws UserNotFoundException;
+    UserDTO updateUser(@NonNull UserDTO userDTO) throws UserNotFoundException;
 
     void deleteUser(Long id) throws UserNotFoundException;
 }
