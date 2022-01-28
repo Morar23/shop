@@ -12,6 +12,8 @@ public interface UserDAO {
 
     User getUserById(Long id) throws UserNotFoundException;
 
+    User getUserByEmail(String email) throws UserNotFoundException;
+
     boolean isUserExist(Long id);
 
     User saveUser(@NonNull UserDTO userDTO);

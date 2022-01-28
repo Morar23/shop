@@ -41,6 +41,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getUserByEmail(String email) throws UserNotFoundException {
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
+    @Override
     public boolean isUserExist(Long id) {
         return userRepository.existsById(id);
     }
@@ -48,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User saveUser(@NonNull UserDTO userDTO) {
         User user = new User();
-        user.setMail(userDTO.getMail());
+        user.setEmail(userDTO.getMail());
         user.setName(userDTO.getName());
         user.setPhone(userDTO.getPhone());
         user.setPassword(userDTO.getPassword());
@@ -61,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
     public User updateUser(@NonNull UserDTO userDTO) throws UserNotFoundException {
         User user = userRepository.findById(userDTO.getId()).orElse(null);
         if (user != null) {
-            user.setMail(userDTO.getMail());
+            user.setEmail(userDTO.getMail());
             user.setPassword(userDTO.getPassword());
             user.setPhone(userDTO.getPhone());
             user.setName(userDTO.getName());

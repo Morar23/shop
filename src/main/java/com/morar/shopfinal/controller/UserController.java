@@ -31,7 +31,7 @@ public class UserController {
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/user", consumes = "application/json")
+    @PostMapping(value = "/register", consumes = "application/json")
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         UserDTO user = userService.saveUser(userDTO);
         return new ResponseEntity<>(user, HttpStatus.OK);

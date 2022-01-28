@@ -1,5 +1,7 @@
 package com.morar.shopfinal.entity;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class User {
     private String name;
 
     @Column(name = "mail", nullable = false)
-    private String mail;
+    private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -33,10 +35,12 @@ public class User {
     public User() {
     }
 
+    @NonNull
     public Long getId() {
         return id;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
@@ -45,14 +49,16 @@ public class User {
         this.name = name;
     }
 
-    public String getMail() {
-        return mail;
+    @NonNull
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    @NonNull
     public String getPassword() {
         return password;
     }
@@ -61,6 +67,7 @@ public class User {
         this.password = password;
     }
 
+    @NonNull
     public String getPhone() {
         return phone;
     }
@@ -69,6 +76,7 @@ public class User {
         this.phone = phone;
     }
 
+    @NonNull
     public String getRole() {
         return role;
     }

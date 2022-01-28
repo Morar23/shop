@@ -7,6 +7,7 @@ import com.morar.shopfinal.entity.User;
 import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import com.morar.shopfinal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +39,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         return transformUserToUserDTO(userDAO.saveUser(userDTO));
     }
 
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService {
         return new UserDTO(
                 user.getId(),
                 user.getName(),
-                user.getMail(),
+                user.getEmail(),
                 user.getPhone(),
                 user.getPassword(),
                 user.getRole()
