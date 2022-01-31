@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7be4a0a-72f8-4982-a845-87ca6b386ba3" name="Changes" comment="authentication has been implemented">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/wrapper.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+    <list default="true" id="b7be4a0a-72f8-4982-a845-87ca6b386ba3" name="Changes" comment="refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/service/impl/AnnouncementServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/service/impl/AnnouncementServiceImpl.java" afterDir="false" />
     </list>
@@ -69,9 +65,6 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="c87c4cfa-442a-443e-be71-4b81f107a971" />
-  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/com/morar/shopfinal/dao/impl/AnnouncementDAOImpl.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/morar/shopfinal/dto/UserDTO.java" root0="FORCE_HIGHLIGHTING" />
@@ -127,7 +120,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -207,7 +200,7 @@
       <workItem from="1643633879169" duration="83000" />
       <workItem from="1643633985274" duration="2138000" />
       <workItem from="1643636649361" duration="886000" />
-      <workItem from="1643643881504" duration="125000" />
+      <workItem from="1643643881504" duration="476000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring">
       <created>1643116633786</created>
@@ -328,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643642382561</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="refactoring">
+      <created>1643644342300</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1643644342300</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
