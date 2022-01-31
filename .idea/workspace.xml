@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7be4a0a-72f8-4982-a845-87ca6b386ba3" name="Changes" comment="authentication has been implemented">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/config/UserPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/config/UserPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/dao/impl/AnnouncementDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/dao/impl/AnnouncementDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/dao/impl/CategoryDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/dao/impl/CategoryDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/dao/impl/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/morar/shopfinal/dao/impl/UserDAOImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="b7be4a0a-72f8-4982-a845-87ca6b386ba3" name="Changes" comment="refactoring" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -183,6 +178,7 @@
       <workItem from="1643633483919" duration="244000" />
       <workItem from="1643633879169" duration="83000" />
       <workItem from="1643633985274" duration="2138000" />
+      <workItem from="1643636649361" duration="886000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring">
       <created>1643116633786</created>
@@ -289,7 +285,21 @@
       <option name="project" value="LOCAL" />
       <updated>1643363098650</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="refactoring">
+      <created>1643642328136</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1643642328136</updated>
+    </task>
+    <task id="LOCAL-00017" summary="refactoring">
+      <created>1643642382561</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1643642382561</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,9 +318,9 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactoring" />
     <MESSAGE value="authentication has been implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="authentication has been implemented" />
+    <MESSAGE value="refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
