@@ -13,6 +13,8 @@ import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import com.morar.shopfinal.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +50,17 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     public AnnouncementDTO saveAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws CategoryNotFoundException, UserNotFoundException {
         Category category = categoryDAO.getCategoryById(announcementDTO.getCategoryId());
-        User user = userDAO.getUserById(1L);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String userEmail;
+
+        if (principal instanceof UserDetails) {
+            userEmail = ((UserDetails)principal).getUsername();
+        } else {
+            userEmail = principal.toString();
+        }
+
+        User user = userDAO.getUserByEmail(userEmail);
         return transformAnnouncementToAnnouncementDTO(announcementDAO.saveAnnouncement(announcementDTO, user, category));
     }
 
