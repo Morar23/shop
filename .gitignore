@@ -1,0 +1,4 @@
+/.idea/sonarlint/
+/.idea/dataSources/
+/src/main/resources/application.properties
+/target/
