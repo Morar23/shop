@@ -2,6 +2,7 @@ package com.morar.shopfinal.dao;
 
 import com.morar.shopfinal.dto.UserDTO;
 import com.morar.shopfinal.entity.User;
+import com.morar.shopfinal.exception.impl.UserIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import org.springframework.lang.NonNull;
 
@@ -16,7 +17,7 @@ public interface UserDAO {
 
     boolean isUserExist(Long id);
 
-    User saveUser(@NonNull UserDTO userDTO);
+    User saveUser(@NonNull UserDTO userDTO) throws UserIsAlreadyExistException;
 
     User updateUser(@NonNull UserDTO userDTO) throws UserNotFoundException;
 

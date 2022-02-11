@@ -1,6 +1,7 @@
 package com.morar.shopfinal.controller;
 
 import com.morar.shopfinal.dto.UserDTO;
+import com.morar.shopfinal.exception.impl.UserIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import com.morar.shopfinal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/register", consumes = "application/json")
-    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) throws UserIsAlreadyExistException {
         UserDTO user = userService.saveUser(userDTO);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

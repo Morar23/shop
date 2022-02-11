@@ -3,6 +3,7 @@ package com.morar.shopfinal.dao.impl;
 import com.morar.shopfinal.dao.UserDAO;
 import com.morar.shopfinal.dto.UserDTO;
 import com.morar.shopfinal.entity.User;
+import com.morar.shopfinal.exception.impl.UserIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import com.morar.shopfinal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,15 +46,19 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User saveUser(@NonNull UserDTO userDTO) {
-        User user = new User();
-        user.setEmail(userDTO.getMail());
-        user.setName(userDTO.getName());
-        user.setPhone(userDTO.getPhone());
-        user.setPassword(userDTO.getPassword());
-        user.setRole(userDTO.getRole().equals(ADMIN.name()) ? ADMIN.name() : USER.name());
-        userRepository.saveAndFlush(user);
-        return user;
+    public User saveUser(@NonNull UserDTO userDTO) throws UserIsAlreadyExistException {
+        if (userRepository.existsUserByEmail(userDTO.getMail())){
+            throw new UserIsAlreadyExistException();
+        }else {
+            User user = new User();
+            user.setEmail(userDTO.getMail());
+            user.setName(userDTO.getName());
+            user.setPhone(userDTO.getPhone());
+            user.setPassword(userDTO.getPassword());
+            user.setRole(userDTO.getRole().equals(ADMIN.name()) ? ADMIN.name() : USER.name());
+            userRepository.saveAndFlush(user);
+            return user;
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.morar.shopfinal.dao.AnnouncementDAO;
 import com.morar.shopfinal.dao.UserDAO;
 import com.morar.shopfinal.dto.UserDTO;
 import com.morar.shopfinal.entity.User;
+import com.morar.shopfinal.exception.impl.UserIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import com.morar.shopfinal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO saveUser(UserDTO userDTO) {
+    public UserDTO saveUser(UserDTO userDTO) throws UserIsAlreadyExistException {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         return transformUserToUserDTO(userDAO.saveUser(userDTO));

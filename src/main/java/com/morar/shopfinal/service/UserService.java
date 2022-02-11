@@ -1,6 +1,7 @@
 package com.morar.shopfinal.service;
 
 import com.morar.shopfinal.dto.UserDTO;
+import com.morar.shopfinal.exception.impl.UserIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.UserNotFoundException;
 import org.springframework.lang.NonNull;
 
@@ -11,7 +12,7 @@ public interface UserService {
 
     UserDTO getUserById(Long id) throws UserNotFoundException;
 
-    UserDTO saveUser(@NonNull UserDTO userDTO);
+    UserDTO saveUser(@NonNull UserDTO userDTO) throws UserIsAlreadyExistException;
 
     UserDTO updateUser(@NonNull UserDTO userDTO) throws UserNotFoundException;
 
