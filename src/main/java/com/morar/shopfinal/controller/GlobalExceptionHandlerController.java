@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalControllerExceptionHandler {
+public class GlobalExceptionHandlerController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleExceptions(Throwable e) {
         if (e instanceof EntityNotFoundException) {
