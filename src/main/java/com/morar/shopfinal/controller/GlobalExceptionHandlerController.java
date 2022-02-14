@@ -1,7 +1,7 @@
 package com.morar.shopfinal.controller;
 
+import com.morar.shopfinal.exception.EntityIsAlreadyExistException;
 import com.morar.shopfinal.exception.EntityNotFoundException;
-import com.morar.shopfinal.exception.impl.UserIsAlreadyExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,7 +13,7 @@ public class GlobalExceptionHandlerController {
     public ResponseEntity<String> handleExceptions(Throwable e) {
         if (e instanceof EntityNotFoundException) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        } else if (e instanceof UserIsAlreadyExistException) {
+        } else if (e instanceof EntityIsAlreadyExistException) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

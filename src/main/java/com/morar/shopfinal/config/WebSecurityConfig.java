@@ -43,9 +43,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/categories").permitAll()
+                .antMatchers("/category/**").permitAll()
+                .antMatchers("/announcements").permitAll()
+                .antMatchers("/announcement/**").permitAll()
+                .antMatchers("/users").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
+                .and()
+                .exceptionHandling().accessDeniedPage("/error")
+                .and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/categories").invalidateHttpSession(true).deleteCookies("JSESSIONID")
                 .and()
                 .csrf().disable();
     }

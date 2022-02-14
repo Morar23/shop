@@ -3,6 +3,7 @@ package com.morar.shopfinal.dao.impl;
 import com.morar.shopfinal.dao.CategoryDAO;
 import com.morar.shopfinal.dto.CategoryDTO;
 import com.morar.shopfinal.entity.Category;
+import com.morar.shopfinal.exception.impl.CategoryIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
 import com.morar.shopfinal.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,15 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
-    public Category saveCategory(@NonNull CategoryDTO categoryDTO) {
-        Category category = new Category();
-        category.setName(categoryDTO.getName());
-        categoryRepository.saveAndFlush(category);
-        return category;
+    public Category saveCategory(@NonNull CategoryDTO categoryDTO) throws CategoryIsAlreadyExistException {
+        if (categoryRepository.existsByName(categoryDTO.getName())) {
+            throw new CategoryIsAlreadyExistException();
+        } else {
+            Category category = new Category();
+            category.setName(categoryDTO.getName());
+            categoryRepository.saveAndFlush(category);
+            return category;
+        }
     }
 
     @Override

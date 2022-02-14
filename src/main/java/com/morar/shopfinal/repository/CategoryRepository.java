@@ -9,4 +9,6 @@ public interface CategoryRepository extends JpaRepository <Category, Long> {
 
     int deleteAllById(Long id);
 
+    boolean existsByName(String name);
+
 }

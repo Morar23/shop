@@ -29,7 +29,7 @@ public class User {
     @Column(name = "role", nullable = false)
     private String role;
 
-    @OneToMany(mappedBy = "author", orphanRemoval = true)
+    @OneToMany(mappedBy = "author", orphanRemoval = true, cascade=CascadeType.REMOVE)
     private List<Announcement> announcements = new ArrayList<>();
 
     public User() {

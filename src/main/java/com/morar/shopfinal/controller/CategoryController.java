@@ -1,6 +1,7 @@
 package com.morar.shopfinal.controller;
 
 import com.morar.shopfinal.dto.CategoryDTO;
+import com.morar.shopfinal.exception.impl.CategoryIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
 import com.morar.shopfinal.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/category", consumes = "application/json")
-    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO categoryDTO) throws CategoryIsAlreadyExistException {
         CategoryDTO category = categoryService.saveCategory(categoryDTO);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }

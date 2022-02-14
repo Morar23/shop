@@ -12,10 +12,10 @@ public class Category {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "category_name", nullable = false)
+    @Column(name = "category_name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "category", orphanRemoval = true)
+    @OneToMany(mappedBy = "category", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Announcement> announcements = new ArrayList<>();
 
     public Category() {

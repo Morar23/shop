@@ -1,6 +1,7 @@
 package com.morar.shopfinal.service;
 
 import com.morar.shopfinal.dto.CategoryDTO;
+import com.morar.shopfinal.exception.impl.CategoryIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
 import org.springframework.lang.NonNull;
 
@@ -12,7 +13,7 @@ public interface CategoryService {
 
     CategoryDTO getCategoryById(Long id) throws CategoryNotFoundException;
 
-    CategoryDTO saveCategory(@NonNull CategoryDTO categoryDTO);
+    CategoryDTO saveCategory(@NonNull CategoryDTO categoryDTO) throws CategoryIsAlreadyExistException;
 
     CategoryDTO updateCategory(@NonNull CategoryDTO categoryDTO) throws CategoryNotFoundException;
 

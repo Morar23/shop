@@ -3,6 +3,7 @@ package com.morar.shopfinal.service.impl;
 import com.morar.shopfinal.dao.CategoryDAO;
 import com.morar.shopfinal.dto.CategoryDTO;
 import com.morar.shopfinal.entity.Category;
+import com.morar.shopfinal.exception.impl.CategoryIsAlreadyExistException;
 import com.morar.shopfinal.exception.impl.CategoryNotFoundException;
 import com.morar.shopfinal.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDTO saveCategory(@NonNull CategoryDTO categoryDTO) {
+    public CategoryDTO saveCategory(@NonNull CategoryDTO categoryDTO) throws CategoryIsAlreadyExistException {
         return transformCategoryToCategoryDTO(categoryDAO.saveCategory(categoryDTO));
     }
 
