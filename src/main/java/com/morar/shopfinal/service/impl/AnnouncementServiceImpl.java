@@ -75,6 +75,11 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         announcementDAO.deleteAnnouncement(id);
     }
 
+    @Override
+    public void deleteAllAnnouncementsByAuthorId(Long id){
+        announcementDAO.deleteAllAnnouncementByAuthorId(id);
+    }
+
     private AnnouncementDTO transformAnnouncementToAnnouncementDTO(Announcement announcement) {
         return new AnnouncementDTO(
                 announcement.getId(),

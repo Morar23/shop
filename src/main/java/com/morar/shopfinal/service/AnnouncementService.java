@@ -18,4 +18,6 @@ public interface AnnouncementService {
     AnnouncementDTO updateAnnouncement(@NonNull AnnouncementDTO announcementDTO) throws AnnouncementNotFoundException, CategoryNotFoundException;
 
     void deleteAnnouncement(Long id) throws AnnouncementNotFoundException;
+
+    void deleteAllAnnouncementsByAuthorId(Long id);
 }

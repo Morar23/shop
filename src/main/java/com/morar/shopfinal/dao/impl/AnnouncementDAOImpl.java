@@ -71,6 +71,6 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
 
     @Override
     public void deleteAllAnnouncementByAuthorId(Long userId) {
-        //TODO
+        announcementRepository.deleteAllByAuthorId(userId);
     }
 }

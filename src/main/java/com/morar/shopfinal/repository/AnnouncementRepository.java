@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface AnnouncementRepository extends JpaRepository<Announcement, Long> {
     int deleteAllById(Long id);
 
-    int deleteByAuthor_Id(Long id);
+    void deleteAllByAuthorId(Long id);
+
 }

@@ -44,7 +44,7 @@ public class CategoryController {
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/category/{id}", consumes = "application/json")
+    @DeleteMapping(value = "/category/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws CategoryNotFoundException {
         categoryService.deleteCategory(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
